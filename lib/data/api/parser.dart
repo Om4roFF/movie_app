@@ -8,27 +8,27 @@ import 'model/api_movie.dart';
 
 mixin Parser {
   static List<ApiMovieThumbnail> parseMovies(String responseBody) {
-    try {
-      final data = json.decode(responseBody);
-      final List<dynamic> moviesJson = data['items'];
-      final List<ApiMovieThumbnail> movies =
-          moviesJson.map((json) => ApiMovieThumbnail.fromJson(json)).toList();
-      return movies;
-    } catch (error) {
-      print(error.toString());
-      throw SerializeException(message: 'error parse movies');
-    }
+    // try {
+    final data = json.decode(responseBody);
+    final List<dynamic> moviesJson = data['items'];
+    final List<ApiMovieThumbnail> movies =
+        moviesJson.map((json) => ApiMovieThumbnail.fromJson(json)).toList();
+    return movies;
+    // } catch (error) {
+    //   print(error.toString());
+    //   throw SerializeException(message: 'error parse movies');
+    // }
   }
 
   static ApiMovie parseMovie(String responseBody) {
-    try {
-      final data = json.decode(responseBody);
-      final movie = ApiMovie.fromJson(data);
-      return movie;
-    } catch (error) {
-      print(error.toString());
-      throw SerializeException(message: 'error parse movie');
-    }
+    // try {
+    final data = json.decode(responseBody);
+    final movie = ApiMovie.fromJson(data);
+    return movie;
+    // } catch (error) {
+    //   print(error.toString());
+    //   throw SerializeException(message: 'error parse movie');
+    // }
   }
 
   static ApiYoutubeTrailer parseTrailer(String responseBody) {

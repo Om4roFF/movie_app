@@ -23,14 +23,14 @@ class ApiMovieThumbnail {
   factory ApiMovieThumbnail.fromJson(Map<String, dynamic> json) =>
       ApiMovieThumbnail(
         id: json["id"],
-        rank: json["rank"],
-        title: json["title"],
-        fullTitle: json["fullTitle"],
-        year: json["year"],
-        image: json["image"],
-        crew: json["crew"],
-        imDbRating: json["imDbRating"],
-        imDbRatingCount: json["imDbRatingCount"],
+        rank: json["rank"] ?? '',
+        title: json["title"] ?? '',
+        fullTitle: json["fullTitle"] ?? '',
+        year: json["year"] ?? '',
+        image: json["image"] ?? '',
+        crew: json["crew"] ?? '',
+        imDbRating: json["imDbRating"] ?? '',
+        imDbRatingCount: json["imDbRatingCount"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

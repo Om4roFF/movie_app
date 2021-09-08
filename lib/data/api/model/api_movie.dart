@@ -104,11 +104,11 @@ class ApiMovie {
 
   factory ApiMovie.fromJson(Map<String, dynamic> json) => ApiMovie(
         id: json["id"],
-        title: json["title"],
-        originalTitle: json["originalTitle"],
-        fullTitle: json["fullTitle"],
-        type: json["type"],
-        year: json["year"],
+        title: json["title"] ?? '',
+        originalTitle: json["originalTitle"] ?? '',
+        fullTitle: json["fullTitle"] ?? '',
+        type: json["type"] ?? '',
+        year: json["year"] ?? '',
         images: ApiImages.fromJson(json["images"]),
         releaseDate: DateTime.parse(json["releaseDate"]),
         runtimeMins: json["runtimeMins"],

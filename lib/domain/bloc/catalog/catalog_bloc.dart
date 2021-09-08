@@ -12,44 +12,70 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
   @override
   Stream<CatalogState> mapEventToState(CatalogEvent event) async* {
     if (event is CatalogLoadTop250ImDb) {
-      try {
-        yield state.copyWith(status: CatalogStatus.loading);
-        final List<MovieThumb> movies =
-            await RepositoryModule.movieRepository().fetchTop250Movies();
-        print(movies.length);
-        yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
-      } on ApiException catch (error) {
-        print('Api Error');
-        print(error.message);
-        print(error.statusCode);
-        yield state.copyWith(status: CatalogStatus.error);
-      } on SerializeException catch (error) {
-        print('parse error');
-        print(error.message);
-        yield state.copyWith(status: CatalogStatus.error);
-      } catch (error) {
-        print(error.toString());
-        yield state.copyWith(status: CatalogStatus.error);
-      }
+      yield* _mapLoadTop250ImDb(event: event, state: state);
     } else if (event is CatalogLoadTop250Tvs) {
-      try {
-        yield state.copyWith(status: CatalogStatus.loading);
-        final List<MovieThumb> movies =
-            await RepositoryModule.movieRepository().fetchTop250TVs();
-        yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
-      } on ApiException catch (error) {
-        print('Api Error');
-        print(error.message);
-        print(error.statusCode);
-        yield state.copyWith(status: CatalogStatus.error);
-      } on SerializeException catch (error) {
-        print('parse error');
-        print(error.message);
-        yield state.copyWith(status: CatalogStatus.error);
-      } catch (error) {
-        print(error.toString());
-        yield state.copyWith(status: CatalogStatus.error);
-      }
+      yield* _mapLoadTop250TVs(event: event, state: state);
+    } else if (event is CatalogLoadDramaMovies) {
+      yield* _mapLoadDrama(event: event, state: state);
+    } else if (event is CatalogLoadMostPopularMovies) {
+      yield* _mapLoadMostPopularMovies(event: event, state: state);
+    }
+  }
+
+  Stream<CatalogState> _mapLoadTop250ImDb(
+      {required CatalogLoadTop250ImDb event,
+      required CatalogState state}) async* {
+    try {
+      yield state.copyWith(status: CatalogStatus.loading);
+      final List<MovieThumb> movies =
+          await RepositoryModule.movieRepository().fetchTop250Movies();
+      print(movies.length);
+      yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
+    } catch (error) {
+      print(error.toString());
+      yield state.copyWith(status: CatalogStatus.error);
+    }
+  }
+
+  Stream<CatalogState> _mapLoadTop250TVs(
+      {required CatalogLoadTop250Tvs event,
+      required CatalogState state}) async* {
+    try {
+      yield state.copyWith(status: CatalogStatus.loading);
+      final List<MovieThumb> movies =
+          await RepositoryModule.movieRepository().fetchTop250TVs();
+      yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
+    } catch (error) {
+      print(error.toString());
+      yield state.copyWith(status: CatalogStatus.error);
+    }
+  }
+
+  Stream<CatalogState> _mapLoadDrama(
+      {required CatalogLoadDramaMovies event,
+      required CatalogState state}) async* {
+    try {
+      yield state.copyWith(status: CatalogStatus.loading);
+      final List<MovieThumb> movies =
+          await RepositoryModule.movieRepository().fetchDramaMovies();
+      yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
+    } catch (error) {
+      print(error.toString());
+      yield state.copyWith(status: CatalogStatus.error);
+    }
+  }
+
+  Stream<CatalogState> _mapLoadMostPopularMovies(
+      {required CatalogLoadMostPopularMovies event,
+      required CatalogState state}) async* {
+    try {
+      yield state.copyWith(status: CatalogStatus.loading);
+      final List<MovieThumb> movies =
+          await RepositoryModule.movieRepository().fetchMostPopularMovies();
+      yield state.copyWith(status: CatalogStatus.loaded, movies: movies);
+    } catch (error) {
+      print(error.toString());
+      yield state.copyWith(status: CatalogStatus.error);
     }
   }
 }

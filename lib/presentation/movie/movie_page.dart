@@ -28,7 +28,7 @@ class MoviePage extends StatelessWidget {
               slivers: [
                 SliverPersistentHeader(
                   delegate: MySliverAppBar(
-                    expandedHeight: 350,
+                    expandedHeight: 600,
                     imageUrl: movie.image,
                     title: movie.fullTitle,
                   ),

@@ -38,6 +38,7 @@ class MovieService {
     final response = await http.get(Uri.parse(
         '${ApplicationConfig.BASE_URL}/Title/${ApplicationConfig.IMDB_TOKEN}/$movieId/Trailer,Ratings,Images'));
     if (response.statusCode == 200) {
+      print(response.body);
       return await compute(Parser.parseMovie, response.body);
     }
     throw ApiException(
@@ -67,15 +68,15 @@ class MovieService {
         statusCode: response.statusCode);
   }
 
-
-  Future<List<ApiMovieThumbnail>> fetchDramaMovies() async{
-    final response = await http.get(Uri.parse('${ApplicationConfig.BASE_URL}/Keyword/${ApplicationConfig.IMDB_TOKEN}/dramas'));
-    if(response.statusCode == 200){
+  Future<List<ApiMovieThumbnail>> fetchDramaMovies() async {
+    final response = await http.get(Uri.parse(
+        '${ApplicationConfig.BASE_URL}/Keyword/${ApplicationConfig.IMDB_TOKEN}/dramas'));
+    if (response.statusCode == 200) {
       return await compute(Parser.parseMovies, response.body);
     }
-    throw ApiException(
-        message: 'error fetching drama movies',
-        statusCode: response.statusCode);
+    throw Exception('error fetching drama movies');
+    // throw ApiException(
+    //     message: 'error fetching drama movies',
+    //     statusCode: response.statusCode);
   }
-
 }

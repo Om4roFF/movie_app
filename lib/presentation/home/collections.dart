@@ -47,7 +47,7 @@ class Collections extends StatelessWidget {
                 asset: 'assets/images/most_popular.jpg',
                 backgroundColor: Colors.white,
                 nameOfCard: 'Most popular movies',
-                event: CatalogLoadTop250ImDb(),
+                event: CatalogLoadMostPopularMovies(),
               ),
             ],
           ),

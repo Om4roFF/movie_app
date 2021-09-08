@@ -15,22 +15,13 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   Stream<MovieState> mapEventToState(MovieEvent event) async* {
     if (event is MovieLoadEvent) {
       try {
-        print(event.movieId);
-        yield MovieLoadingState();
-        final Movie movie =
-            await RepositoryModule.movieRepository().fetchMovie(event.movieId);
-        final YoutubeTrailer trailer = await RepositoryModule.movieRepository()
-            .fetchYoutubeTrailer(event.movieId);
-        yield MovieLoadedState(movie: movie, trailer: trailer);
-      } on SerializeException catch (error) {
-        print('parse error');
-        print(error.message);
-        yield MovieErrorState('Error, please try again!!!');
-      } on ApiException catch (error) {
-        print('Api Error');
-        print(error.message);
-        print(error.statusCode);
-        yield MovieErrorState('Error, please try again!!!');
+      print(event.movieId);
+      yield MovieLoadingState();
+      final Movie movie =
+          await RepositoryModule.movieRepository().fetchMovie(event.movieId);
+      final YoutubeTrailer trailer = await RepositoryModule.movieRepository()
+          .fetchYoutubeTrailer(event.movieId);
+      yield MovieLoadedState(movie: movie, trailer: trailer);
       } catch (error) {
         print(error.toString());
         yield MovieErrorState('Error, please try again!!!');

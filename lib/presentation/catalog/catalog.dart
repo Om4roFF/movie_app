@@ -71,12 +71,15 @@ class Catalog extends StatelessWidget {
   Future<List<MovieThumb>> pageFetch(
       int offset, List<MovieThumb> movies) async {
     var page = (offset / 20).round();
+    print(page);
+    print(movies.length);
     if (movies.isNotEmpty) {
       final List<MovieThumb> nextMovieList =
           movies.sublist(page * 20, page * 20 + 20);
       await Future.delayed(Duration(seconds: 1));
       return nextMovieList;
     }
+
     return [];
   }
 }

@@ -19,10 +19,10 @@ class ApiImages {
 
   factory ApiImages.fromJson(Map<String, dynamic> json) => ApiImages(
         imDbId: json["imDbId"],
-        title: json["title"],
-        fullTitle: json["fullTitle"],
-        type: json["type"],
-        year: json["year"],
+        title: json["title"] ?? '',
+        fullTitle: json["fullTitle"] ?? '',
+        type: json["type"] ?? '',
+        year: json["year"] ?? '',
         items:
             List<ApiItem>.from(json["items"].map((x) => ApiItem.fromJson(x))),
         errorMessage: json["errorMessage"],
@@ -49,8 +49,8 @@ class ApiItem {
   final String image;
 
   factory ApiItem.fromJson(Map<String, dynamic> json) => ApiItem(
-        title: json["title"],
-        image: json["image"],
+        title: json["title"] ?? '',
+        image: json["image"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
